@@ -19,7 +19,10 @@ def svn_resolve(targets, accept=None):
     cmd = ["svn", "resolve"]
     if accept:
         cmd.extend(["--accept", accept])
-    cmd.extend(targets)
+    if isinstance(targets, list):
+        cmd.extend(targets)
+    else:
+        cmd.append(targets)
 
     try:
         result = subprocess.run(
